@@ -14,35 +14,8 @@
       </div>
     </header>
     <main class="main container">
-      <button class="btn btn-add">+ Add book</button>
-      <div class="book-grid-section">
-        <div class="book-card" data-book>
-          <p class="book-card-title" data-title>Dummy</p>
-          <p class="book-card-author" data-author>Dummy</p>
-          <p class="book-pages-read" data-pages-read>Dummy</p>
-          <div class="btn-group">
-            <button class="btn btn-read active">Read</button>
-            <button class="btn btn-remove">Remove</button>
-          </div>
-        </div>
-        <div class="book-card" data-book>
-          <p class="book-card-title" data-title>Dummy</p>
-          <p class="book-card-author" data-author>Dummy</p>
-          <p class="book-pages-read" data-pages-read>Dummy</p>
-          <div class="btn-group">
-            <button class="btn btn-read active">Read</button>
-            <button class="btn btn-remove">Remove</button>
-          </div>
-        </div>
-        <div class="book-card" data-book>
-          <p class="book-card-title" data-title>Dummy</p>
-          <p class="book-card-author" data-author>Dummy</p>
-          <p class="book-pages-read" data-pages-read>Dummy</p>
-          <div class="btn-group">
-            <button class="btn btn-read active">Read</button>
-            <button class="btn btn-remove">Remove</button>
-          </div>
-        </div>
+      <button class="btn btn-add" id="addBookBtn">+ Add book</button>
+      <div class="book-grid-section" id="booksSection">
       </div>
     </main>
     <footer class="footer">
@@ -54,20 +27,43 @@
         Jakub Nalewajk
       </p>
     </footer>
-    <div class="modal-add-book">
+    <div class="modal-add-book" id="modalBackground">
       <div class="modal-content">
         <form class="modal-form">
           <h2 class="modal-title">Add new book</h2>
-          <input type="text" placeholder="Title" class="input" required />
-          <input type="text" placeholder="Author" class="input" required />
-          <input type="number" placeholder="Pages" class="input" required />
+          <input
+            type="text"
+            placeholder="Title"
+            class="input"
+            data-title-input
+            required
+          />
+          <input
+            type="text"
+            placeholder="Author"
+            class="input"
+            data-author-input
+            required
+          />
+          <input
+            type="number"
+            placeholder="Pages"
+            class="input"
+            data-pages-input
+            required
+          />
           <div class="isread">
             <label for="checkbox" class="checkbox-label"
               >Have you read it?</label
             >
-            <input type="checkbox" name="checkbox" class="checkbox" />
+            <input
+              type="checkbox"
+              name="checkbox"
+              class="checkbox"
+              data-checkbox
+            />
           </div>
-          <button type="submit" value="Submit" class="btn btn-submit">
+          <button id="submitBtn" value="Submit" class="btn btn-submit">
             Submit
           </button>
         </form>
