@@ -1,10 +1,9 @@
-let myLibrary = [];
+const myLibrary = [];
 
 const submitBtn = document.getElementById("submitBtn");
 const modalBackground = document.getElementById("modalBackground");
 
 document.addEventListener("click", (e) => {
-  console.log(e.target.id);
   if (e.target.id === "modalBackground" || e.target.id === "addBookBtn") {
     openModal();
   }
@@ -13,12 +12,18 @@ document.addEventListener("click", (e) => {
     myLibrary.splice(e.target.parentElement.parentElement.dataset.id, 1);
     renderBooks();
   }
+
+  if (e.target.id === "isRead") {
+    myLibrary[e.target.parentElement.parentElement.dataset.id].isRead = true;
+    renderBooks();
+  }
 });
 
 submitBtn.addEventListener("click", (e) => {
   e.preventDefault();
   addBookToLibrary(myLibrary);
   renderBooks();
+  clearInput();
   openModal();
 });
 
@@ -29,14 +34,17 @@ function Book(title, author, pages, isRead) {
   this.isRead = isRead;
 }
 
-function addBookToLibrary(library) {
+function createBook() {
   const bookTitle = document.querySelector("[data-title-input]").value;
   const bookAuthor = document.querySelector("[data-author-input]").value;
   const bookPages = document.querySelector("[data-pages-input]").value;
   const isRead = document.querySelector("[data-title-input]");
 
-  const newBook = new Book(bookTitle, bookAuthor, bookPages, isRead.checked);
+  return new Book(bookTitle, bookAuthor, bookPages, isRead.checked);
+}
 
+function addBookToLibrary(library) {
+  const newBook = createBook();
   library.push(newBook);
 }
 
@@ -48,17 +56,25 @@ function openModal() {
   }
 }
 
+function clearInput() {
+  const inputFields = document.querySelectorAll("input");
+  inputFields.forEach((inputField) => {
+    console.log(inputField);
+    inputField.value = "";
+  });
+}
+
 function renderBooks() {
   const bookContent = document.getElementById("booksSection");
-  bookContentHtml = "";
+  let bookContentHtml = "";
 
   myLibrary.forEach((book, index) => {
     bookContentHtml += `<div class="book-card" data-id="${index}">
           <p class="book-card-title">${book.title}</p>
           <p class="book-card-author">${book.author}</p>
-          <p class="book-pages-read">${book.pages}</p>
+          <p class="book-pages-read">${book.pages} pages</p>
           <div class="btn-group">
-            <button class="btn btn-read active">Read</button>
+            <button class="btn btn-read active" id="isRead">Read</button>
             <button class="btn btn-remove" id="removeBook">Remove</button>
           </div>
         </div>`;
