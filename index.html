@@ -16,7 +16,7 @@
     <main class="main container">
       <button class="btn btn-add">+ Add book</button>
       <div class="book-grid-section">
-        <div class="book-card">
+        <div class="book-card" data-book>
           <p class="book-card-title" data-title>Dummy</p>
           <p class="book-card-author" data-author>Dummy</p>
           <p class="book-pages-read" data-pages-read>Dummy</p>
@@ -25,7 +25,7 @@
             <button class="btn btn-remove">Remove</button>
           </div>
         </div>
-        <div class="book-card">
+        <div class="book-card" data-book>
           <p class="book-card-title" data-title>Dummy</p>
           <p class="book-card-author" data-author>Dummy</p>
           <p class="book-pages-read" data-pages-read>Dummy</p>
@@ -34,7 +34,7 @@
             <button class="btn btn-remove">Remove</button>
           </div>
         </div>
-        <div class="book-card">
+        <div class="book-card" data-book>
           <p class="book-card-title" data-title>Dummy</p>
           <p class="book-card-author" data-author>Dummy</p>
           <p class="book-pages-read" data-pages-read>Dummy</p>
@@ -54,6 +54,25 @@
         Jakub Nalewajk
       </p>
     </footer>
+    <div class="modal-add-book">
+      <div class="modal-content">
+        <form class="modal-form">
+          <h2 class="modal-title">Add new book</h2>
+          <input type="text" placeholder="Title" class="input" required />
+          <input type="text" placeholder="Author" class="input" required />
+          <input type="number" placeholder="Pages" class="input" required />
+          <div class="isread">
+            <label for="checkbox" class="checkbox-label"
+              >Have you read it?</label
+            >
+            <input type="checkbox" name="checkbox" class="checkbox" />
+          </div>
+          <button type="submit" value="Submit" class="btn btn-submit">
+            Submit
+          </button>
+        </form>
+      </div>
+    </div>
     <script src="script.js" defer></script>
   </body>
 </html>
