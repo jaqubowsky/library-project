@@ -5,8 +5,55 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <link rel="stylesheet" href="styles.css" />
-    <script src="script.js" defer></script>
     <title>Library</title>
   </head>
-  <body></body>
+  <body>
+    <header class="header">
+      <div class="container">
+        <h1 class="header-title">Library</h1>
+      </div>
+    </header>
+    <main class="main container">
+      <button class="btn btn-add">+ Add book</button>
+      <div class="book-grid-section">
+        <div class="book-card">
+          <p class="book-card-title" data-title>Dummy</p>
+          <p class="book-card-author" data-author>Dummy</p>
+          <p class="book-pages-read" data-pages-read>Dummy</p>
+          <div class="btn-group">
+            <button class="btn btn-read active">Read</button>
+            <button class="btn btn-remove">Remove</button>
+          </div>
+        </div>
+        <div class="book-card">
+          <p class="book-card-title" data-title>Dummy</p>
+          <p class="book-card-author" data-author>Dummy</p>
+          <p class="book-pages-read" data-pages-read>Dummy</p>
+          <div class="btn-group">
+            <button class="btn btn-read active">Read</button>
+            <button class="btn btn-remove">Remove</button>
+          </div>
+        </div>
+        <div class="book-card">
+          <p class="book-card-title" data-title>Dummy</p>
+          <p class="book-card-author" data-author>Dummy</p>
+          <p class="book-pages-read" data-pages-read>Dummy</p>
+          <div class="btn-group">
+            <button class="btn btn-read active">Read</button>
+            <button class="btn btn-remove">Remove</button>
+          </div>
+        </div>
+      </div>
+    </main>
+    <footer class="footer">
+      <p>
+        Copyright ©
+        <script>
+          document.write(new Date().getFullYear());
+        </script>
+        Jakub Nalewajk
+      </p>
+    </footer>
+    <script src="script.js" defer></script>
+  </body>
 </html>

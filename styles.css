@@ -1,7 +1,127 @@
+@import url("https://fonts.googleapis.com/css2?family=Roboto:wght@300;700&display=swap");
+
+:root {
+  --main-white: #fffbfb;
+  --main-grey: #f0eef1;
+  --light-green: #9fff9c;
+  --light-red: #ff9c9c;
+  --shadow: rgba(0, 0, 0, 0.16) 0px 1px 4px;
+}
+
 *,
 *::after,
 *::before {
   margin: 0;
   padding: 0;
   box-sizing: border-box;
+  font-family: "Roboto", sans-serif;
+  font-weight: 700;
+}
+
+/* MAIN LAYOUT */
+
+.container {
+  padding: 1.5em;
+  margin: 1em auto;
+}
+
+p {
+  line-height: 1.5;
+}
+
+html {
+  min-height: 100%;
+  position: relative;
+  padding-bottom: 60px;
+}
+
+body {
+  color: #252525;
+  background-color: var(--main-grey);
+  word-wrap: break-word;
+  text-align: center;
+}
+
+/* HEADER */
+
+.header {
+  height: 100px;
+  background-color: var(--main-white);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+/* BOOKS GRID */
+
+.book-grid-section {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  gap: 2em;
+  margin-top: 2em;
+}
+
+/* BOOK CARD */
+
+.book-card {
+  display: flex;
+  font-size: 1.3rem;
+  flex-direction: column;
+  text-align: center;
+  padding: 0.7em;
+  background-color: var(--main-white);
+}
+
+.book-card > *,
+.btn-read {
+  margin-bottom: 0.7em;
+}
+
+/* BUTTONS */
+
+.btn {
+  padding: 0.7em 2em;
+  border: none;
+  border-radius: 5px;
+  outline: none;
+  font-size: inherit;
+}
+
+.btn-add {
+  background-color: transparent;
+}
+
+.btn-read {
+  background-color: var(--light-red);
+}
+
+.btn-read.active {
+  background-color: var(--light-green);
+}
+
+/* BTN GROUP */
+
+.btn-group > * {
+  width: 100%;
+}
+
+/* FOOTER */
+
+.footer {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  position: absolute;
+  left: 0px;
+  bottom: 0px;
+  width: 100%;
+  padding: 30px 0;
+}
+
+/* MEDIA QUERIES */
+
+@media (min-width: 1200px) {
+  .container {
+    width: 1200px;
+  }
 }
