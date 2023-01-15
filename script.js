@@ -4,8 +4,14 @@ const submitBtn = document.getElementById("submitBtn");
 const modalBackground = document.getElementById("modalBackground");
 
 document.addEventListener("click", (e) => {
+  console.log(e.target.id);
   if (e.target.id === "modalBackground" || e.target.id === "addBookBtn") {
     openModal();
+  }
+
+  if (e.target.id === "removeBook") {
+    myLibrary.splice(e.target.parentElement.parentElement.dataset.id, 1);
+    renderBooks();
   }
 });
 
@@ -46,16 +52,16 @@ function renderBooks() {
   const bookContent = document.getElementById("booksSection");
   bookContentHtml = "";
 
-  for (book of myLibrary) {
-    bookContentHtml += `<div class="book-card">
+  myLibrary.forEach((book, index) => {
+    bookContentHtml += `<div class="book-card" data-id="${index}">
           <p class="book-card-title">${book.title}</p>
           <p class="book-card-author">${book.author}</p>
           <p class="book-pages-read">${book.pages}</p>
           <div class="btn-group">
             <button class="btn btn-read active">Read</button>
-            <button class="btn btn-remove">Remove</button>
+            <button class="btn btn-remove" id="removeBook">Remove</button>
           </div>
         </div>`;
-  }
+  });
   bookContent.innerHTML = bookContentHtml;
 }
