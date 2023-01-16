@@ -26,29 +26,20 @@ document.getElementById("modalForm").addEventListener("submit", (e) => {
   openModal();
 });
 
-// BOOK CONSTRUCTOR FUNCTION
+// BOOK FACTORY FUNCTION
 
-function Book(title, author, pages, isRead) {
-  this.title = title;
-  this.author = author;
-  this.pages = pages;
-  this.isRead = isRead;
-}
-
-// MAIN FUNCTIONS
-
-function createBook() {
-  const bookTitle = document.querySelector("[data-title-input]").value;
-  const bookAuthor = document.querySelector("[data-author-input]").value;
-  const bookPages = document.querySelector("[data-pages-input]").value;
+const bookFactory = () => {
+  const title = document.querySelector("[data-title-input]").value;
+  const author = document.querySelector("[data-title-input]").value;
+  const pages = document.querySelector("[data-pages-input]").value;
   const isReadInput = document.querySelector("[data-checkbox]").checked;
 
-  return new Book(bookTitle, bookAuthor, bookPages, isReadInput);
-}
+  return { title, author, pages, isReadInput };
+};
 
 function addBookToLibrary(library) {
   if (!isInLibrary()) {
-    const newBook = createBook();
+    const newBook = bookFactory();
     library.push(newBook);
   }
 }
@@ -60,7 +51,7 @@ function renderBooks() {
   let readBtnText = "";
 
   myLibrary.forEach((book, index) => {
-    if (!book.isRead) {
+    if (!book.isReadInput) {
       readBtnClass = "";
       readBtnText = "Not Read";
     } else {
@@ -102,7 +93,7 @@ function openModal() {
 }
 
 function isRead(book) {
-  book.isRead = !book.isRead;
+  book.isReadInput = !book.isReadInput;
   renderBooks();
 }
 
