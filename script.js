@@ -1,7 +1,6 @@
 const myLibrary = [];
 
-const submitBtn = document.getElementById("submitBtn");
-const modalBackground = document.getElementById("modalBackground");
+// EVENT READERS
 
 document.addEventListener("click", (e) => {
   if (e.target.id === "modalBackground" || e.target.id === "addBookBtn") {
@@ -19,7 +18,7 @@ document.addEventListener("click", (e) => {
   }
 });
 
-submitBtn.addEventListener("click", (e) => {
+document.getElementById("modalForm").addEventListener("submit", (e) => {
   e.preventDefault();
   addBookToLibrary(myLibrary);
   renderBooks();
@@ -27,12 +26,16 @@ submitBtn.addEventListener("click", (e) => {
   openModal();
 });
 
+// BOOK CONSTRUCTOR FUNCTION
+
 function Book(title, author, pages, isRead) {
   this.title = title;
   this.author = author;
   this.pages = pages;
   this.isRead = isRead;
 }
+
+// MAIN FUNCTIONS
 
 function createBook() {
   const bookTitle = document.querySelector("[data-title-input]").value;
@@ -48,35 +51,6 @@ function addBookToLibrary(library) {
     const newBook = createBook();
     library.push(newBook);
   }
-}
-
-function isInLibrary() {
-  const bookTitle = document.querySelector("[data-title-input]").value;
-
-  return myLibrary.some(
-    (book) => book.title.toLowerCase() === bookTitle.toLowerCase()
-  );
-}
-
-function openModal() {
-  if (modalBackground.classList.contains("active")) {
-    modalBackground.classList.remove("active");
-  } else {
-    modalBackground.classList.add("active");
-  }
-}
-
-function isRead(book) {
-  book.isRead = !book.isRead;
-  renderBooks();
-}
-
-function clearInput() {
-  const inputFields = document.querySelectorAll("input");
-  inputFields.forEach((inputField) => {
-    inputField.value = "";
-    inputField.checked = false;
-  });
 }
 
 function renderBooks() {
@@ -105,4 +79,37 @@ function renderBooks() {
         </div>`;
   });
   bookContent.innerHTML = bookContentHtml;
+}
+
+// UTILITY FUNCTIONS
+
+function isInLibrary() {
+  const bookTitle = document.querySelector("[data-title-input]").value;
+
+  return myLibrary.some(
+    (book) => book.title.toLowerCase() === bookTitle.toLowerCase()
+  );
+}
+
+function openModal() {
+  const modalBackground = document.getElementById("modalBackground");
+
+  if (modalBackground.classList.contains("active")) {
+    modalBackground.classList.remove("active");
+  } else {
+    modalBackground.classList.add("active");
+  }
+}
+
+function isRead(book) {
+  book.isRead = !book.isRead;
+  renderBooks();
+}
+
+function clearInput() {
+  const inputFields = document.querySelectorAll("input");
+  inputFields.forEach((inputField) => {
+    inputField.value = "";
+    inputField.checked = false;
+  });
 }
