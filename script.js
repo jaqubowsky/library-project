@@ -1,6 +1,7 @@
 const myLibrary = [];
 
 const submitBtn = document.getElementById("submitBtn");
+const checkBox = document.getElementById("checkbox");
 const modalBackground = document.getElementById("modalBackground");
 
 document.addEventListener("click", (e) => {
@@ -14,7 +15,7 @@ document.addEventListener("click", (e) => {
   }
 
   if (e.target.id === "isRead") {
-    myLibrary[e.target.parentElement.parentElement.dataset.id].isRead = true;
+    isRead(myLibrary[e.target.parentElement.parentElement.dataset.id]);
     renderBooks();
   }
 });
@@ -38,14 +39,30 @@ function createBook() {
   const bookTitle = document.querySelector("[data-title-input]").value;
   const bookAuthor = document.querySelector("[data-author-input]").value;
   const bookPages = document.querySelector("[data-pages-input]").value;
-  const isRead = document.querySelector("[data-title-input]");
+  let isRead = document.querySelector("[data-title-input]");
+
+  if (checkBox.checked) {
+    isRead.checked = true;
+  } else {
+    isRead.checked = false;
+  }
 
   return new Book(bookTitle, bookAuthor, bookPages, isRead.checked);
 }
 
 function addBookToLibrary(library) {
-  const newBook = createBook();
-  library.push(newBook);
+  if (!isInLibrary()) {
+    const newBook = createBook();
+    library.push(newBook);
+  }
+}
+
+function isInLibrary() {
+  const bookTitle = document.querySelector("[data-title-input]").value;
+
+  return myLibrary.some(
+    (book) => book.title.toLowerCase() === bookTitle.toLowerCase()
+  );
 }
 
 function openModal() {
@@ -56,10 +73,14 @@ function openModal() {
   }
 }
 
+function isRead(book) {
+  book.isRead = !book.isRead;
+  renderBooks();
+}
+
 function clearInput() {
   const inputFields = document.querySelectorAll("input");
   inputFields.forEach((inputField) => {
-    console.log(inputField);
     inputField.value = "";
   });
 }
@@ -67,14 +88,24 @@ function clearInput() {
 function renderBooks() {
   const bookContent = document.getElementById("booksSection");
   let bookContentHtml = "";
+  let readBtnClass = "";
+  let readBtnText = "";
 
   myLibrary.forEach((book, index) => {
+    if (!book.isRead) {
+      readBtnClass = "";
+      readBtnText = "Not Read";
+    } else {
+      readBtnClass = "active";
+      readBtnText = "Read";
+    }
+
     bookContentHtml += `<div class="book-card" data-id="${index}">
           <p class="book-card-title">${book.title}</p>
           <p class="book-card-author">${book.author}</p>
           <p class="book-pages-read">${book.pages} pages</p>
           <div class="btn-group">
-            <button class="btn btn-read active" id="isRead">Read</button>
+            <button class="btn btn-read ${readBtnClass}" id="isRead">${readBtnText}</button>
             <button class="btn btn-remove" id="removeBook">Remove</button>
           </div>
         </div>`;
