@@ -1,7 +1,4 @@
-const myLibrary = [];
-
 // EVENT READERS
-
 document.addEventListener("click", (e) => {
   if (e.target.id === "modalBackground" || e.target.id === "addBookBtn") {
     openModal();
@@ -27,6 +24,7 @@ document.getElementById("modalForm").addEventListener("submit", (e) => {
 });
 
 // BOOK FACTORY FUNCTION
+const myLibrary = [];
 
 const bookFactory = () => {
   const title = document.querySelector("[data-title-input]").value;
@@ -37,6 +35,8 @@ const bookFactory = () => {
   return { title, author, pages, isReadInput };
 };
 
+// MAIN FUNCTIONS
+
 function addBookToLibrary(library) {
   if (!isInLibrary()) {
     const newBook = bookFactory();
@@ -45,7 +45,6 @@ function addBookToLibrary(library) {
 }
 
 function renderBooks() {
-  const bookContent = document.getElementById("booksSection");
   let bookContentHtml = "";
   let readBtnClass = "";
   let readBtnText = "";
@@ -69,16 +68,16 @@ function renderBooks() {
           </div>
         </div>`;
   });
-  bookContent.innerHTML = bookContentHtml;
+
+  document.getElementById("booksSection").innerHTML = bookContentHtml;
 }
 
 // UTILITY FUNCTIONS
-
 function isInLibrary() {
-  const bookTitle = document.querySelector("[data-title-input]").value;
-
   return myLibrary.some(
-    (book) => book.title.toLowerCase() === bookTitle.toLowerCase()
+    (book) =>
+      book.title.toLowerCase() ===
+      document.querySelector("[data-title-input]").value.toLowerCase()
   );
 }
 
@@ -98,9 +97,8 @@ function isRead(book) {
 }
 
 function clearInput() {
-  const inputFields = document.querySelectorAll("input");
-  inputFields.forEach((inputField) => {
+  document.querySelectorAll(".input").forEach((inputField) => {
     inputField.value = "";
-    inputField.checked = false;
   });
+  document.querySelector(".checkbox").checked = false;
 }
