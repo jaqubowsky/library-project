@@ -50,6 +50,7 @@ body {
   display: flex;
   justify-content: center;
   align-items: center;
+  box-shadow: var(--shadow);
 }
 
 /* BOOKS GRID */
@@ -71,6 +72,7 @@ body {
   padding: 0.7em;
   gap: 16px;
   background-color: var(--main-white);
+  box-shadow: var(--shadow);
 }
 
 /* BUTTONS */
@@ -85,7 +87,22 @@ body {
 }
 
 .btn-add {
+  font-size: 1.6rem;
   background-color: transparent;
+  transition: all 0.5s;
+}
+
+.btn-remove {
+  transition: all 0.5s;
+}
+
+.btn-add:hover,
+.btn-remove:hover {
+  background-color: lightgrey;
+}
+
+.btn-add:active {
+  background-color: grey;
 }
 
 .btn-read {
@@ -99,10 +116,21 @@ body {
 
 .btn-read {
   margin-bottom: 0.7em;
+  transition: all 0.5s;
+}
+
+.btn-read.active:hover,
+.btn-submit:hover {
+  background-color: rgb(138, 216, 135);
+}
+
+.btn-read:hover {
+  background-color: rgb(190, 116, 116) ż;
 }
 
 .btn-submit {
   width: 100%;
+  transition: all 0.5s;
 }
 
 /* BTN GROUP */
@@ -161,6 +189,7 @@ body {
 .checkbox {
   width: 20px;
   height: 20px;
+  cursor: pointer;
 }
 
 .modal-content {
