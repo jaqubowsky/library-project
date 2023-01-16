@@ -1,7 +1,6 @@
 const myLibrary = [];
 
 const submitBtn = document.getElementById("submitBtn");
-const checkBox = document.getElementById("checkbox");
 const modalBackground = document.getElementById("modalBackground");
 
 document.addEventListener("click", (e) => {
@@ -39,15 +38,9 @@ function createBook() {
   const bookTitle = document.querySelector("[data-title-input]").value;
   const bookAuthor = document.querySelector("[data-author-input]").value;
   const bookPages = document.querySelector("[data-pages-input]").value;
-  let isRead = document.querySelector("[data-title-input]");
+  const isReadInput = document.querySelector("[data-checkbox]").checked;
 
-  if (checkBox.checked) {
-    isRead.checked = true;
-  } else {
-    isRead.checked = false;
-  }
-
-  return new Book(bookTitle, bookAuthor, bookPages, isRead.checked);
+  return new Book(bookTitle, bookAuthor, bookPages, isReadInput);
 }
 
 function addBookToLibrary(library) {
@@ -82,6 +75,7 @@ function clearInput() {
   const inputFields = document.querySelectorAll("input");
   inputFields.forEach((inputField) => {
     inputField.value = "";
+    inputField.checked = false;
   });
 }
 
