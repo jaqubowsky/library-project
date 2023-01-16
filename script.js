@@ -1,8 +1,7 @@
 // EVENT READERS
 document.addEventListener("click", (e) => {
-  if (e.target.id === "modalBackground" || e.target.id === "addBookBtn") {
+  if (e.target.id === "modalBackground" || e.target.id === "addBookBtn")
     openModal();
-  }
 
   if (e.target.id === "removeBook") {
     myLibrary.splice(e.target.parentElement.parentElement.dataset.id, 1);
@@ -38,24 +37,21 @@ const bookFactory = () => {
 // MAIN FUNCTIONS
 
 function addBookToLibrary(library) {
-  if (!isInLibrary()) {
-    const newBook = bookFactory();
-    library.push(newBook);
-  }
+  if (isInLibrary()) return;
+  const newBook = bookFactory();
+  library.push(newBook);
 }
 
 function renderBooks() {
   let bookContentHtml = "";
-  let readBtnClass = "";
-  let readBtnText = "";
-
+  
   myLibrary.forEach((book, index) => {
+    let readBtnClass = "active";
+    let readBtnText = "Read";
+
     if (!book.isReadInput) {
       readBtnClass = "";
       readBtnText = "Not Read";
-    } else {
-      readBtnClass = "active";
-      readBtnText = "Read";
     }
 
     bookContentHtml += `<div class="book-card" data-id="${index}">
