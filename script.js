@@ -9,7 +9,7 @@ document.addEventListener("click", (e) => {
   }
 
   if (e.target.id === "isRead") {
-    isRead(myLibrary[e.target.parentElement.parentElement.dataset.id]);
+    isBookRead(myLibrary[e.target.parentElement.parentElement.dataset.id]);
     renderBooks();
   }
 });
@@ -29,9 +29,9 @@ const bookFactory = () => {
   const title = document.querySelector("[data-title-input]").value;
   const author = document.querySelector("[data-title-input]").value;
   const pages = document.querySelector("[data-pages-input]").value;
-  const isReadInput = document.querySelector("[data-checkbox]").checked;
+  const isRead = document.querySelector("[data-checkbox]").checked;
 
-  return { title, author, pages, isReadInput };
+  return { title, author, pages, isRead };
 };
 
 // MAIN FUNCTIONS
@@ -44,12 +44,14 @@ function addBookToLibrary(library) {
 
 function renderBooks() {
   let bookContentHtml = "";
+
+  if (!myLibrary) return
   
   myLibrary.forEach((book, index) => {
     let readBtnClass = "active";
     let readBtnText = "Read";
 
-    if (!book.isReadInput) {
+    if (!book.isRead) {
       readBtnClass = "";
       readBtnText = "Not Read";
     }
@@ -87,8 +89,8 @@ function openModal() {
   }
 }
 
-function isRead(book) {
-  book.isReadInput = !book.isReadInput;
+function isBookRead(book) {
+  book.isRead = !book.isRead;
   renderBooks();
 }
 
