@@ -4,56 +4,85 @@ document.addEventListener("click", (e) => {
     openModal();
 
   if (e.target.id === "removeBook") {
-    myLibrary.splice(e.target.parentElement.parentElement.dataset.id, 1);
+    library.removeBook(e.target.parentElement.parentElement.dataset.id);
     renderBooks();
   }
 
   if (e.target.id === "isRead") {
-    isBookRead(myLibrary[e.target.parentElement.parentElement.dataset.id]);
+    library.isBookRead(
+      library.books[e.target.parentElement.parentElement.dataset.id]
+    );
     renderBooks();
   }
 });
 
 document.getElementById("modalForm").addEventListener("submit", (e) => {
   e.preventDefault();
-  addBookToLibrary(myLibrary);
+  const newBook = new Book();
+  library.addBook(newBook);
   renderBooks();
   clearInput();
   openModal();
 });
 
-// BOOK FACTORY FUNCTION
-const myLibrary = [];
+// BOOK CLASS
 
-const bookFactory = () => {
-  const title = document.querySelector("[data-title-input]").value;
-  const author = document.querySelector("[data-title-input]").value;
-  const pages = document.querySelector("[data-pages-input]").value;
-  const isRead = document.querySelector("[data-checkbox]").checked;
+class Book {
+  title = "Unknown";
+  author = "Unknown";
+  pages = 0;
+  isRead = false;
 
-  return { title, author, pages, isRead };
-};
+  constructor() {
+    this.title = document.querySelector("[data-title-input]").value;
+    this.author = document.querySelector("[data-title-input]").value;
+    this.pages = document.querySelector("[data-pages-input]").value;
+    this.isRead = document.querySelector("[data-checkbox]").checked;
+  }
+}
+
+class Library {
+  constructor() {
+    this.books = [];
+  }
+
+  addBook(newBook) {
+    if (library.isInLibrary(newBook)) return;
+
+    this.books.push(newBook);
+  }
+
+  removeBook(index) {
+    this.books.splice(index, 1);
+  }
+
+  isBookRead(currentBook) {
+    currentBook.isRead = !currentBook.isRead;
+  }
+
+  isInLibrary(currentBook) {
+    return this.books.some(
+      (book) => book.title.toLowerCase() === currentBook.title.toLowerCase()
+    );
+  }
+}
+
+const library = new Library();
 
 // MAIN FUNCTIONS
-
-function addBookToLibrary(library) {
-  if (isInLibrary()) return;
-  const newBook = bookFactory();
-  library.push(newBook);
-}
 
 function renderBooks() {
   let bookContentHtml = "";
 
-  if (!myLibrary) return
-  
-  myLibrary.forEach((book, index) => {
-    let readBtnClass = "active";
-    let readBtnText = "Read";
+  if (!library.books) return;
 
-    if (!book.isRead) {
-      readBtnClass = "";
-      readBtnText = "Not Read";
+  library.books.forEach((book, index) => {
+    let readBtnClass = "";
+    let readBtnText = "Not Read";
+
+    if (book.isRead) {
+      readBtnClass = "active";
+      readBtnText = "Read";
     }
 
     bookContentHtml += `<div class="book-card" data-id="${index}">
@@ -70,15 +99,6 @@ function renderBooks() {
   document.getElementById("booksSection").innerHTML = bookContentHtml;
 }
 
-// UTILITY FUNCTIONS
-function isInLibrary() {
-  return myLibrary.some(
-    (book) =>
-      book.title.toLowerCase() ===
-      document.querySelector("[data-title-input]").value.toLowerCase()
-  );
-}
-
 function openModal() {
   const modalBackground = document.getElementById("modalBackground");
 
@@ -87,11 +107,6 @@ function openModal() {
   } else {
     modalBackground.classList.add("active");
   }
-}
-
-function isBookRead(book) {
-  book.isRead = !book.isRead;
-  renderBooks();
 }
 
 function clearInput() {
